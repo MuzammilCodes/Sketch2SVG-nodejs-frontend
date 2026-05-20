@@ -1,0 +1,425 @@
+.blogContainer {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 48px 24px 100px;
+  background: #f0ece4;
+  min-height: 100vh;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #2a2a2a;
+}
+
+/* ── Hero ───────────────────────────────────────── */
+.hero {
+  margin-bottom: 40px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid #ddd8ce;
+}
+
+.heroMeta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tag {
+  background: #fde8dd;
+  color: #c0522a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-family: system-ui, sans-serif;
+}
+
+.readTime {
+  font-size: 13px;
+  color: #999;
+  font-family: system-ui, sans-serif;
+}
+
+.heroTitle {
+  font-size: 38px;
+  font-weight: 700;
+  color: #1a1a1a;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  letter-spacing: -0.5px;
+}
+
+.heroSubtitle {
+  font-size: 18px;
+  color: #666;
+  line-height: 1.7;
+  margin: 0;
+  font-style: italic;
+}
+
+/* ── Top CTA ────────────────────────────────────── */
+.topCta {
+  background: #fff;
+  border: 1.5px solid #c0522a;
+  border-radius: 12px;
+  padding: 18px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.topCtaText {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  font-family: system-ui, sans-serif;
+}
+
+.topCtaText strong {
+  color: #1a1a1a;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 3px;
+}
+
+/* ── TOC ────────────────────────────────────────── */
+.tocBox {
+  background: #ece8e0;
+  border-left: 3px solid #c0522a;
+  border-radius: 0 8px 8px 0;
+  padding: 18px 22px;
+  margin-bottom: 44px;
+}
+
+.tocLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #999;
+  margin: 0 0 10px;
+  font-family: system-ui, sans-serif;
+}
+
+.tocList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  columns: 2;
+  gap: 8px;
+}
+
+.tocList li {
+  font-size: 14px;
+  margin-bottom: 6px;
+  font-family: system-ui, sans-serif;
+}
+
+.tocList a {
+  color: #c0522a;
+  text-decoration: none;
+}
+
+.tocList a:hover {
+  text-decoration: underline;
+}
+
+/* ── Sections ───────────────────────────────────── */
+.blogContainer section {
+  margin-bottom: 44px;
+}
+
+.blogContainer section h2 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 14px;
+  padding-top: 8px;
+  letter-spacing: -0.3px;
+}
+
+.blogContainer section h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2a2a2a;
+  margin: 24px 0 10px;
+}
+
+.blogContainer section p {
+  font-size: 16px;
+  line-height: 1.8;
+  color: #444;
+  margin: 0 0 14px;
+}
+
+.blogContainer section ul {
+  padding-left: 22px;
+  margin: 0 0 14px;
+}
+
+.blogContainer section ul li {
+  font-size: 16px;
+  line-height: 1.9;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.blogContainer section code {
+  background: #e8e2d8;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-family: "Courier New", monospace;
+  color: #c0522a;
+}
+
+/* ── Callout ────────────────────────────────────── */
+.callout {
+  background: #fff8f5;
+  border-left: 3px solid #c0522a;
+  border-radius: 0 8px 8px 0;
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  font-family: system-ui, sans-serif;
+}
+
+.calloutIcon {
+  font-size: 16px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Comparison Table ───────────────────────────── */
+.comparisonTable {
+  border: 1px solid #ddd8ce;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: system-ui, sans-serif;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.comparisonHeader {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr;
+  background: #2a2a2a;
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+.colSvg {
+  color: #f5a07a;
+}
+
+.colPng {
+  color: #aaa;
+}
+
+.comparisonRow {
+  display: grid;
+  grid-template-columns: 1.8fr 1fr 1fr;
+  padding: 10px 16px;
+  border-top: 1px solid #e8e4dc;
+  background: #fff;
+  transition: background 0.15s;
+}
+
+.comparisonRow:nth-child(even) {
+  background: #faf8f5;
+}
+
+.comparisonFeature {
+  color: #555;
+  font-weight: 500;
+}
+
+.comparisonSvg {
+  color: #c0522a;
+  font-weight: 500;
+}
+
+.comparisonPng {
+  color: #777;
+}
+
+/* ── Stat Cards ─────────────────────────────────── */
+.statRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 28px 0;
+}
+
+.statCard {
+  background: #fff;
+  border: 1px solid #ddd8ce;
+  border-radius: 10px;
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+}
+
+.statNum {
+  font-size: 28px;
+  font-weight: 700;
+  color: #c0522a;
+  font-family: system-ui, sans-serif;
+  letter-spacing: -1px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: #888;
+  line-height: 1.5;
+  font-family: system-ui, sans-serif;
+}
+
+/* ── Mid CTA ────────────────────────────────────── */
+.midCta {
+  background: #fff8f5;
+  border-left: 4px solid #c0522a;
+  border-radius: 0 10px 10px 0;
+  padding: 20px 24px;
+  margin: 40px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.midCtaText {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  font-family: system-ui, sans-serif;
+}
+
+.midCtaText strong {
+  color: #1a1a1a;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 3px;
+  font-size: 15px;
+}
+
+/* ── FAQ ────────────────────────────────────────── */
+.faqList {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.faqItem {
+  padding: 20px 0;
+  border-bottom: 1px solid #ddd8ce;
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+}
+
+.faqQ {
+  font-size: 17px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+
+.faqA {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* ── Bottom CTA ─────────────────────────────────── */
+.bottomCta {
+  margin-top: 60px;
+  background: #2a2a2a;
+  border-radius: 16px;
+  padding: 40px 32px;
+  text-align: center;
+}
+
+.bottomCta h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 10px;
+}
+
+.bottomCta p {
+  font-size: 15px;
+  color: #aaa;
+  margin: 0 0 24px;
+  line-height: 1.6;
+}
+
+/* ── Buttons ────────────────────────────────────── */
+.ctaBtn {
+  background: #c0522a;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-family: system-ui, sans-serif;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+.ctaBtn:hover {
+  background: #a8431e;
+}
+
+.ctaBtnOutline {
+  background: transparent;
+  color: #c0522a;
+  border: 1.5px solid #c0522a;
+  border-radius: 8px;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  font-family: system-ui, sans-serif;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.ctaBtnOutline:hover {
+  background: #fff8f5;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+@media (max-width: 600px) {
+  .heroTitle { font-size: 28px; }
+  .heroSubtitle { font-size: 15px; }
+  .topCta { flex-direction: column; align-items: flex-start; }
+  .midCta { flex-direction: column; align-items: flex-start; }
+  .tocList { columns: 1; }
+  .comparisonHeader,
+  .comparisonRow { grid-template-columns: 1.4fr 1fr 1fr; font-size: 12px; }
+  .statRow { grid-template-columns: 1fr; }
+  .blogContainer { padding: 32px 16px 80px; }
+}
