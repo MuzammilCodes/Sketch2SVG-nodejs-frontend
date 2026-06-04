@@ -70,13 +70,13 @@ export const metadata = {
     siteName: "Sketch2SVG",
     title: "Convert Image to SVG Online Free | Sketch2SVG",
     description:
-      "Upload PNG, JPG, BMP, or any image and convert it into clean, scalable SVG in seconds. No login. No watermark.",
+      "Convert PNG, JPG, BMP, or any image to SVG instantly. Free online image to SVG converter with clean scalable output. No login, no watermark.",
   },
   twitter: {
     card: "summary_large_image",
     title: "Convert Image to SVG Online Free | Sketch2SVG",
     description:
-      "Upload PNG, JPG, BMP, or any image and convert it into clean, scalable SVG in seconds.",
+      "Convert PNG, JPG, BMP, or any image to SVG instantly. Free online image to SVG converter with clean scalable output. No login, no watermark.",
   },
   verification: {
     google: "YZbXQI6OEIL9yor3J53MKpDVNVRlUYQVd2GOmoE_QQM",
