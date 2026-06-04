@@ -12,7 +12,7 @@ export const metadata = {
     url: SITE_URL,
     title: "Convert Image to SVG Online Free | Sketch2SVG",
     description:
-      "Upload PNG, JPG, BMP, or any image and convert it into clean, scalable SVG in seconds. No login. No watermark.",
+      "Convert PNG, JPG, BMP, or any image to SVG instantly. Free online image to SVG converter with clean scalable output. No login, no watermark.",
   },
 };
 
@@ -24,7 +24,7 @@ const softwareJsonLd = {
   applicationCategory: "DesignApplication",
   operatingSystem: "Any (web)",
   description:
-    "Free online image and sketch to SVG converter. Upload PNG, JPG, BMP, GIF, or WebP and get clean scalable vector output instantly.",
+    "Convert PNG, JPG, BMP, or any image to SVG instantly. Free online image to SVG converter with clean scalable output. No login, no watermark.",
   offers: {
     "@type": "Offer",
     price: "0",
