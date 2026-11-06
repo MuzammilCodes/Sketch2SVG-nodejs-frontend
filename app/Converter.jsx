@@ -3,6 +3,8 @@
 import { useState, useRef, useCallback, useEffect } from "react";
 import s from "./components/Site.module.css";
 import Header from "./components/Header";
+import seo from "./components/HomeSeo.module.css";
+import Link from "next/link";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL || "https://svgconverterbackend.onrender.com";
@@ -133,13 +135,11 @@ export default function Converter() {
 
       {/* ── Hero intro ── */}
       <section className={s.hero}>
-        <h2 className={s.heroTitle}>
-          Convert Images to SVG Instantly
-          <br />
-        </h2>
+        <h1 className={s.heroTitle}>
+          Free Image to SVG Converter Online
+        </h1>
         <p className={s.heroBody}>
-          Upload PNG, JPG, BMP, or any image and convert it into clean, scalable
-          SVG in seconds. No login. No watermark.
+          Convert supported PNG, JPG, BMP, GIF and WebP images into SVG vector paths. Adjust tracing settings, preview your result and download the SVG.
         </p>
       </section>
 
@@ -378,6 +378,47 @@ export default function Converter() {
         </div>
       </main>
 
+      {/* Crawlable explanatory content: rendered with the page, while the converter remains interactive. */}
+      <section className={seo.content} aria-labelledby="about-converter">
+        <div className={seo.inner}>
+          <p className={seo.eyebrow}>IMAGE TO VECTOR TOOL</p>
+          <h2 id="about-converter">Convert an image to SVG vector paths</h2>
+          <p className={seo.lead}>
+            Sketch2SVG is an online image-to-SVG converter. Upload a supported raster image and the conversion service traces its visible regions into SVG output. The result is useful for suitable logos, icons, symbols and high-contrast illustrations.
+          </p>
+
+          <div className={seo.grid}>
+            <section>
+              <h3>Supported image formats</h3>
+              <p>The upload interface accepts PNG, JPG/JPEG, BMP, GIF and WebP files. The conversion service processes the uploaded image and returns SVG markup when conversion succeeds.</p>
+            </section>
+            <section>
+              <h3>How to use the converter</h3>
+              <ol>
+                <li>Choose an image from your device or drag it into the upload area.</li>
+                <li>Optionally adjust threshold, speckle filtering, corner smoothing and curve accuracy.</li>
+                <li>Run the conversion, inspect the SVG preview and download the result.</li>
+              </ol>
+            </section>
+            <section>
+              <h3>Images that usually trace well</h3>
+              <p>Simple logos, icons, silhouettes and high-contrast artwork are generally easier to vectorize. Clear edges and limited visual noise help produce more manageable paths.</p>
+            </section>
+            <section>
+              <h3>When to keep a raster image</h3>
+              <p>Photographs, soft gradients, textures and highly detailed images are often better kept as PNG, JPEG or WebP. Tracing may simplify details or create complex paths.</p>
+            </section>
+          </div>
+
+          <div className={seo.links}>
+            <h3>Learn more about image conversion</h3>
+            <Link href="/blog/image-to-svg-guide">How to convert an image to SVG</Link>
+            <Link href="/blog/image-to-vector-guide">How raster images become vector graphics</Link>
+            <Link href="/blog/svg-vs-png">SVG vs PNG: which format should you use?</Link>
+          </div>
+        </div>
+      </section>
+
       {/* ── Developer Info ── */}
       <section className={s.devSection}>
         <div className={s.devInner}>
@@ -391,7 +432,7 @@ export default function Converter() {
           </div>
 
           <div className={s.devLinks}>
-            <a
+            <Link
               href="https://github.com/MuzammilCodes"
               target="_blank"
               rel="noreferrer"
@@ -399,8 +440,8 @@ export default function Converter() {
             >
               <GithubIcon />
               <span>Github</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://www.linkedin.com/in/muzammil-codes/"
               target="_blank"
               rel="noreferrer"
@@ -408,8 +449,8 @@ export default function Converter() {
             >
               <LinkedInIcon />
               <span>LinkedIn</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="https://muzammilcodes-v2.netlify.app/"
               target="_blank"
               rel="noreferrer"
@@ -417,7 +458,7 @@ export default function Converter() {
             >
               <GlobeIcon />
               <span>Portfolio</span>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

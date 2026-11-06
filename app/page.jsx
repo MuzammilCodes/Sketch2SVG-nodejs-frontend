@@ -1,45 +1,36 @@
 import Converter from "./Converter";
-
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://sketch2svg.netlify.app";
+import { SITE_NAME, SITE_URL, jsonLdString } from "../lib/site";
 
 export const metadata = {
-  title: "Convert Image to SVG Online Free | Sketch2SVG",
+  title: "Free Image to SVG Converter Online",
   description:
-    "Convert PNG, JPG, BMP, or any image to SVG instantly. Free online image to SVG converter with clean scalable output. No login, no watermark.",
+    "Convert PNG, JPG, BMP, GIF and WebP images into SVG vector paths online. Fine-tune tracing settings and download your SVG with Sketch2SVG for free.",
   alternates: { canonical: "/" },
   openGraph: {
+    type: "website",
     url: SITE_URL,
-    title: "Convert Image to SVG Online Free | Sketch2SVG",
-    description:
-      "Upload PNG, JPG, BMP, or any image and convert it into clean, scalable SVG in seconds. No login. No watermark.",
+    title: "Free Image to SVG Converter Online | Sketch2SVG",
+    description: "Convert supported raster images into SVG vector paths with adjustable tracing settings.",
   },
 };
 
 const softwareJsonLd = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Sketch2SVG",
+  name: SITE_NAME,
   url: SITE_URL,
   applicationCategory: "DesignApplication",
-  operatingSystem: "Any (web)",
-  description:
-    "Free online image and sketch to SVG converter. Upload PNG, JPG, BMP, GIF, or WebP and get clean scalable vector output instantly.",
-  offers: {
-    "@type": "Offer",
-    price: "0",
-    priceCurrency: "USD",
-  },
+  operatingSystem: "Any",
+  browserRequirements: "Requires a modern browser with JavaScript enabled.",
+  description: "A browser-based tool that sends supported raster images to a conversion service and returns SVG vector output.",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  isAccessibleForFree: true,
 };
 
 export default function HomePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(softwareJsonLd) }}
-      />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(softwareJsonLd) }} />
       <Converter />
     </>
   );

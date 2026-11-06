@@ -6,25 +6,20 @@ export default function Header() {
     <>
       <div className={s.topBand} />
       <header className={s.header}>
-        <Link href="/" className={s.logoWrap}>
+        <Link href="/" className={s.logoWrap} aria-label="Sketch2SVG home">
           <PenNib />
           <div>
-            <h1 className={s.logoName}>
+            <span className={s.logoName}>
               Sketch<span className={s.logoTwo}>2</span>SVG
-            </h1>
+            </span>
             <p className={s.logoTagline}>raster to vector, beautifully</p>
           </div>
         </Link>
-        <nav className={s.navLinks}>
-          <Link href="/blog/sketch-to-svg-guide" className={s.blogLink}>
-            Blog
-          </Link>
-          <Link href="/blog/image-to-svg-guide" className={s.blogLink}>
-            Image to SVG Guide
-          </Link>
-          <Link href="/blog/svg-vs-png" className={s.blogLink}>
-            SVG vs PNG
-          </Link>
+        <nav className={s.navLinks} aria-label="Main navigation">
+          <Link href="/best-free-svg-converter-2027" className={s.blogLink}>Best Free SVG Converter 2027</Link>
+          <Link href="/blog/image-to-svg-guide" className={s.blogLink}>Image to SVG Guide</Link>
+          <Link href="/blog/image-to-vector-guide" className={s.blogLink}>Image to Vector</Link>
+          <Link href="/blog/svg-vs-png" className={s.blogLink}>SVG vs PNG</Link>
         </nav>
       </header>
     </>
@@ -32,17 +27,7 @@ export default function Header() {
 }
 
 const PenNib = () => (
-  <svg
-    width="36"
-    height="36"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
+  <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <path d="M12 20h9" />
     <path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z" />
   </svg>
