@@ -39,7 +39,7 @@ export default function ArticleLayout({ title, description, path, readTime, toc,
         </nav>
         {children}
         <aside className={s.bottomArticleCta}>
-          <h2>Try Sketch2SVG</h2>
+          <h2>Try Image2SVG</h2>
           <p>Convert a supported raster image into SVG vector output. The result depends on the image and tracing settings.</p>
           <Link href="/" className={s.ctaBtn}>Convert an image →</Link>
         </aside>

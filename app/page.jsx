@@ -4,12 +4,12 @@ import { SITE_NAME, SITE_URL, jsonLdString } from "../lib/site";
 export const metadata = {
   title: "Free Image to SVG Converter Online",
   description:
-    "Convert PNG, JPG, BMP, GIF and WebP images into SVG vector paths online. Fine-tune tracing settings and download your SVG with Sketch2SVG for free.",
+    "Convert PNG, JPG, BMP, GIF and WebP images into SVG vector paths online. Fine-tune tracing settings and download your SVG with Image2SVG for free.",
   alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     url: SITE_URL,
-    title: "Free Image to SVG Converter Online | Sketch2SVG",
+    title: "Free Image to SVG Converter Online | Image2SVG",
     description: "Convert supported raster images into SVG vector paths with adjustable tracing settings.",
   },
 };

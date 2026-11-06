@@ -12,11 +12,11 @@ const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Free Image to SVG Converter Online | Sketch2SVG",
-    template: "%s | Sketch2SVG",
+    default: "Free Image to SVG Converter Online | Image2SVG",
+    template: "%s | Image2SVG",
   },
   description:
-    "Convert PNG, JPG, BMP, GIF and WebP images into SVG vector paths online with Sketch2SVG. Adjust tracing settings and download your SVG for free.",
+    "Convert PNG, JPG, BMP, GIF and WebP images into SVG vector paths online with Image2SVG. Adjust tracing settings and download your SVG for free.",
   applicationName: SITE_NAME,
   keywords: [
     "image to svg converter",
@@ -27,7 +27,7 @@ export const metadata = {
     "raster to vector converter",
     "free svg converter",
   ],
-  authors: [{ name: "Sketch2SVG" }],
+  authors: [{ name: "Image2SVG" }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
   robots: {
@@ -40,12 +40,12 @@ export const metadata = {
     type: "website",
     url: SITE_URL,
     siteName: SITE_NAME,
-    title: "Free Image to SVG Converter Online | Sketch2SVG",
+    title: "Free Image to SVG Converter Online | Image2SVG",
     description: "Turn raster images into SVG vector paths. Upload an image, adjust tracing settings and download your SVG.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Free Image to SVG Converter Online | Sketch2SVG",
+    title: "Free Image to SVG Converter Online | Image2SVG",
     description: "Convert PNG, JPG and other supported images into SVG vector paths online.",
   },
   verification: {

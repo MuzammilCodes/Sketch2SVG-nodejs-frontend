@@ -384,7 +384,7 @@ export default function Converter() {
           <p className={seo.eyebrow}>IMAGE TO VECTOR TOOL</p>
           <h2 id="about-converter">Convert an image to SVG vector paths</h2>
           <p className={seo.lead}>
-            Sketch2SVG is an online image-to-SVG converter. Upload a supported raster image and the conversion service traces its visible regions into SVG output. The result is useful for suitable logos, icons, symbols and high-contrast illustrations.
+            Image2SVG is an online image-to-SVG converter. Upload a supported raster image and the conversion service traces its visible regions into SVG output. The result is useful for suitable logos, icons, symbols and high-contrast illustrations.
           </p>
 
           <div className={seo.grid}>

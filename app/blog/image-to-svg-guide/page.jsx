@@ -3,7 +3,7 @@ import ArticleLayout from "../ArticleLayout";
 import { SITE_URL } from "../../../lib/site";
 
 const TITLE = "How to Convert an Image to SVG Online";
-const DESCRIPTION = "Learn how raster-to-vector conversion works, which images trace well, and how to convert PNG, JPG, BMP, GIF and WebP files into SVG with Sketch2SVG.";
+const DESCRIPTION = "Learn how raster-to-vector conversion works, which images trace well, and how to convert PNG, JPG, BMP, GIF and WebP files into SVG with Image2SVG.";
 const PATH = "/blog/image-to-svg-guide";
 
 export const metadata = {
@@ -19,7 +19,7 @@ const toc = [
   ["raster-vs-vector", "Raster vs vector images"],
   ["how-tracing-works", "How image tracing works"],
   ["best-images", "Which images work best?"],
-  ["steps", "Convert an image with Sketch2SVG"],
+  ["steps", "Convert an image with Image2SVG"],
   ["settings", "Understanding tracing settings"],
   ["limitations", "What to expect from the result"],
 ];
@@ -45,7 +45,7 @@ export default function ImageToSvgGuide() {
       <section id="how-tracing-works">
         <h2>How image-to-SVG tracing works</h2>
         <p>An image tracer examines the contrast and regions in a raster image, identifies boundaries, then represents selected regions as vector paths. The exact result depends on the tracing algorithm, input image and settings.</p>
-        <p>Sketch2SVG sends the uploaded file to its conversion API and returns SVG output. The browser interface lets you adjust threshold, speckle filtering, corner smoothing and curve accuracy before conversion.</p>
+        <p>Image2SVG sends the uploaded file to its conversion API and returns SVG output. The browser interface lets you adjust threshold, speckle filtering, corner smoothing and curve accuracy before conversion.</p>
       </section>
       <section id="best-images">
         <h2>Which images produce the best SVG results?</h2>
@@ -57,9 +57,9 @@ export default function ImageToSvgGuide() {
         <p>For best results, start with a clear, high-resolution source, crop away unnecessary background and use an image with strong contrast between the subject and its background.</p>
       </section>
       <section id="steps">
-        <h2>How to convert an image to SVG with Sketch2SVG</h2>
+        <h2>How to convert an image to SVG with Image2SVG</h2>
         <ol>
-          <li>Open the <Link href="/">Sketch2SVG converter</Link>.</li>
+          <li>Open the <Link href="/">Image2SVG converter</Link>.</li>
           <li>Choose a PNG, JPG/JPEG, BMP, GIF or WebP image.</li>
           <li>Open the fine-tune settings if you want to adjust the tracing result.</li>
           <li>Select the conversion action and wait for the API to return SVG markup.</li>

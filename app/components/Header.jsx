@@ -6,11 +6,11 @@ export default function Header() {
     <>
       <div className={s.topBand} />
       <header className={s.header}>
-        <Link href="/" className={s.logoWrap} aria-label="Sketch2SVG home">
+        <Link href="/" className={s.logoWrap} aria-label="Image2SVG home">
           <PenNib />
           <div>
             <span className={s.logoName}>
-              Sketch<span className={s.logoTwo}>2</span>SVG
+              Image<span className={s.logoTwo}>2</span>SVG
             </span>
             <p className={s.logoTagline}>raster to vector, beautifully</p>
           </div>

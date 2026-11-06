@@ -73,7 +73,7 @@ export default function SvgVsPngGuide() {
       <section id="convert">
         <h2>Can you convert PNG to SVG?</h2>
         <p>Yes. A tracing tool can analyse a PNG and approximate its visible regions with vector paths. This process is called vectorization. It is not a lossless format conversion: the SVG is a traced interpretation of the pixels, and fine details may be simplified.</p>
-        <p>Simple, high-contrast graphics generally trace more cleanly than photographs. You can <Link href="/">try the Sketch2SVG PNG-to-SVG workflow</Link> with an image and adjust the tracing settings.</p>
+        <p>Simple, high-contrast graphics generally trace more cleanly than photographs. You can <Link href="/">try the Image2SVG PNG-to-SVG workflow</Link> with an image and adjust the tracing settings.</p>
       </section>
       <section id="seo">
         <h2>Do SVG and PNG affect website SEO?</h2>

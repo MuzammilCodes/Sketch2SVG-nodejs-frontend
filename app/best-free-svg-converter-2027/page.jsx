@@ -4,7 +4,7 @@ import { SITE_URL } from "../../lib/site";
 
 const TITLE = "Best Free SVG Converter 2027";
 const DESCRIPTION =
-  "Looking for the best free SVG converter in 2027? Learn what to look for in an online image-to-SVG tool, how raster-to-vector conversion works, and how to convert supported images with Sketch2SVG.";
+  "Looking for the best free SVG converter in 2027? Learn what to look for in an online image-to-SVG tool, how raster-to-vector conversion works, and how to convert supported images with Image2SVG.";
 const PATH = "/best-free-svg-converter-2027";
 
 export const metadata = {
@@ -38,7 +38,7 @@ export const metadata = {
 const toc = [
   ["what-is", "What is an SVG converter?"],
   ["choose", "How to choose a free SVG converter"],
-  ["sketch2svg", "Try Sketch2SVG online"],
+  ["image2svg", "Try Image2SVG online"],
   ["steps", "How to convert an image to SVG"],
   ["formats", "Supported image formats"],
   ["best-results", "Tips for cleaner vector results"],
@@ -117,10 +117,10 @@ export default function BestFreeSvgConverter2027Page() {
         </p>
       </section>
 
-      <section id="sketch2svg">
-        <h2>Try Sketch2SVG: a free online image-to-SVG converter</h2>
+      <section id="image2svg">
+        <h2>Try Image2SVG: a free online image-to-SVG converter</h2>
         <p>
-          Sketch2SVG is an online image-to-SVG converter for supported raster
+          Image2SVG is an online image-to-SVG converter for supported raster
           images. Despite the brand name, it is not limited to hand-drawn
           sketches. You can use it with suitable logos, icons, symbols,
           silhouettes and other high-contrast artwork.
@@ -132,12 +132,12 @@ export default function BestFreeSvgConverter2027Page() {
           download the file or copy its SVG markup.
         </p>
         <p>
-          Sketch2SVG sends the selected image to its conversion service for
+          Image2SVG sends the selected image to its conversion service for
           processing. Do not upload confidential or sensitive images unless
           you are comfortable with that processing arrangement.
         </p>
         <p>
-          <Link href="/">Open the free Sketch2SVG image converter</Link> to try it
+          <Link href="/">Open the free Image2SVG image converter</Link> to try it
           with a supported image.
         </p>
       </section>
@@ -145,7 +145,7 @@ export default function BestFreeSvgConverter2027Page() {
       <section id="steps">
         <h2>How to convert an image to SVG online</h2>
         <ol>
-          <li>Open the <Link href="/">Sketch2SVG image-to-SVG converter</Link>.</li>
+          <li>Open the <Link href="/">Image2SVG image-to-SVG converter</Link>.</li>
           <li>
             Select a supported PNG, JPG/JPEG, BMP, GIF or WebP image from your
             device.
@@ -177,7 +177,7 @@ export default function BestFreeSvgConverter2027Page() {
       <section id="formats">
         <h2>Which image formats can you convert to SVG?</h2>
         <p>
-          Sketch2SVG&apos;s upload interface accepts the following image formats.
+          Image2SVG&apos;s upload interface accepts the following image formats.
           Actual conversion success can also depend on the file encoding,
           dimensions and the conversion service&apos;s limits.
         </p>
@@ -233,20 +233,20 @@ export default function BestFreeSvgConverter2027Page() {
         <p>
           The best choice depends on your source image, required output and
           privacy needs. For supported raster images such as PNG, JPG, BMP,
-          GIF and WebP, you can try Sketch2SVG and inspect the resulting paths
+          GIF and WebP, you can try Image2SVG and inspect the resulting paths
           before deciding whether the output meets your needs.
         </p>
 
         <h3>Can I convert PNG to SVG for free?</h3>
         <p>
-          Yes. Sketch2SVG offers a free online workflow for supported PNG
+          Yes. Image2SVG offers a free online workflow for supported PNG
           images. Upload the image, adjust the tracing controls if needed,
           convert it and inspect the SVG before downloading.
         </p>
 
         <h3>Can JPG images be converted into SVG?</h3>
         <p>
-          Yes. JPG is accepted by the Sketch2SVG upload interface. Because
+          Yes. JPG is accepted by the Image2SVG upload interface. Because
           JPEG images often contain compression artifacts and photographic
           detail, simple high-contrast JPG artwork generally traces more
           cleanly than a detailed photograph.

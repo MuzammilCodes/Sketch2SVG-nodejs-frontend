@@ -34,7 +34,7 @@ export default function ImageToVectorGuide() {
       <section id="process">
         <h2>How raster tracing works</h2>
         <p>A tracing tool analyses contrast, edges and connected regions in the source image. It then fits paths or shapes around the selected areas and writes those elements into SVG markup.</p>
-        <p>Some tracing workflows focus on a foreground/background threshold. Others can detect multiple colors or use more advanced segmentation. Sketch2SVG&apos;s current controls expose threshold, speckle filtering, corner smoothing and curve fitting for its tracing workflow.</p>
+        <p>Some tracing workflows focus on a foreground/background threshold. Others can detect multiple colors or use more advanced segmentation. Image2SVG&apos;s current controls expose threshold, speckle filtering, corner smoothing and curve fitting for its tracing workflow.</p>
       </section>
       <section id="prepare">
         <h2>How to prepare an image for tracing</h2>
@@ -64,12 +64,12 @@ export default function ImageToVectorGuide() {
         <h2>Try an image-to-vector workflow</h2>
         <ol>
           <li>Choose a clear raster image in a supported format.</li>
-          <li>Upload it to <Link href="/">Sketch2SVG</Link>.</li>
+          <li>Upload it to <Link href="/">Image2SVG</Link>.</li>
           <li>Adjust the tracing controls to suit the image.</li>
           <li>Generate and inspect the SVG output.</li>
           <li>Download the file and, if needed, refine it in a vector editor.</li>
         </ol>
-        <p>Sketch2SVG is a general image-to-SVG tool. Its name is a brand name; it is not limited to hand-drawn sketches.</p>
+        <p>Image2SVG is a general image-to-SVG tool. Its name is a brand name; it is not limited to hand-drawn sketches.</p>
       </section>
     </ArticleLayout>
   );
