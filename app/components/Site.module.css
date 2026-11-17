@@ -833,7 +833,9 @@
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 28px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px 22px;
 }
 
 .blogLink {
@@ -846,6 +848,31 @@
 .blogLink:hover {
   color: var(--terracotta);
 }
+
+/* ── Language switcher ── */
+.langSwitch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--cream);
+}
+.langLink {
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+}
+.langLink:hover { background: var(--parchment); text-decoration: none; }
+.langActive { background: var(--terracotta); color: var(--warm-white); }
+.langActive:hover { background: var(--terracotta); }
+.langFull { background: transparent; border-color: rgba(255, 255, 255, 0.18); flex-wrap: wrap; }
+.langFull .langLink { color: #d9ccb4; font-size: 0.78rem; letter-spacing: 0; }
+.langFull .langLink:hover { background: rgba(255, 255, 255, 0.08); }
+.langFull .langActive { background: var(--terracotta); color: var(--warm-white); }
 
 /* ── Mobile: stack header so nav links sit below the logo ── */
 @media (max-width: 640px) {

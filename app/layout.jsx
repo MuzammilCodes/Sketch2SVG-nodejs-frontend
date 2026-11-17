@@ -3,9 +3,9 @@ import Script from "next/script";
 import { SITE_NAME, SITE_URL, jsonLdString } from "../lib/site";
 import "./globals.css";
 
-const lora = Lora({ subsets: ["latin"], weight: ["400", "600", "700"], style: ["normal", "italic"], variable: "--font-lora", display: "swap" });
-const fraunces = Fraunces({ subsets: ["latin"], weight: ["300", "500", "700"], style: ["normal", "italic"], variable: "--font-fraunces", display: "swap" });
-const dmMono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-dm-mono", display: "swap" });
+const lora = Lora({ subsets: ["latin"], weight: ["400", "600", "700"], variable: "--font-lora", display: "swap" });
+const fraunces = Fraunces({ subsets: ["latin"], weight: ["700"], style: ["normal", "italic"], variable: "--font-fraunces", display: "swap" });
+const dmMono = DM_Mono({ subsets: ["latin"], weight: ["400"], variable: "--font-dm-mono", display: "swap" });
 
 const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
 
@@ -60,7 +60,7 @@ const siteJsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     { "@type": "Organization", "@id": `${SITE_URL}/#organization`, name: SITE_NAME, url: SITE_URL },
-    { "@type": "WebSite", "@id": `${SITE_URL}/#website`, name: SITE_NAME, url: SITE_URL, publisher: { "@id": `${SITE_URL}/#organization` }, inLanguage: "en" },
+    { "@type": "WebSite", "@id": `${SITE_URL}/#website`, name: SITE_NAME, url: SITE_URL, publisher: { "@id": `${SITE_URL}/#organization` }, inLanguage: ["en", "fr", "es"] },
   ],
 };
 

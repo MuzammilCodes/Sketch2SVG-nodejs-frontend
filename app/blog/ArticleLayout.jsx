@@ -1,5 +1,6 @@
 import Link from "next/link";
-import Header from "../components/Header";
+import PageHeader from "../components/PageHeader";
+import PageFooter from "../components/PageFooter";
 import s from "./Blog.module.css";
 import { SITE_NAME, SITE_URL, absoluteUrl, jsonLdString } from "../../lib/site";
 
@@ -19,7 +20,7 @@ export default function ArticleLayout({ title, description, path, readTime, toc,
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(articleJsonLd) }} />
-      <div className={s.siteHeader}><Header /></div>
+      <div className={s.siteHeader}><PageHeader /></div>
       <article className={s.blogContainer}>
         <header className={s.hero}>
           <div className={s.heroMeta}><span className={s.tag}>Guide</span><span className={s.readTime}>{readTime} min read</span></div>
@@ -44,6 +45,7 @@ export default function ArticleLayout({ title, description, path, readTime, toc,
           <Link href="/" className={s.ctaBtn}>Convert an image →</Link>
         </aside>
       </article>
+      <PageFooter />
     </>
   );
 }

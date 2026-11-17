@@ -1,25 +1,29 @@
 import Link from "next/link";
 import s from "./Site.module.css";
+import LanguageSwitcher from "./LanguageSwitcher";
+import { getDictionary, localePath } from "../../lib/i18n";
 
-export default function Header() {
+export default function Header({ locale = "en" }) {
+  const t = getDictionary(locale);
   return (
     <>
       <div className={s.topBand} />
       <header className={s.header}>
-        <Link href="/" className={s.logoWrap} aria-label="Image2SVG home">
+        <Link href={localePath(locale)} className={s.logoWrap} aria-label={t.nav.home}>
           <PenNib />
           <div>
             <span className={s.logoName}>
               Image<span className={s.logoTwo}>2</span>SVG
             </span>
-            <p className={s.logoTagline}>raster to vector, beautifully</p>
+            <p className={s.logoTagline}>{t.tagline}</p>
           </div>
         </Link>
-        <nav className={s.navLinks} aria-label="Main navigation">
-          <Link href="/best-free-svg-converter-2027" className={s.blogLink}>Best Free SVG Converter 2027</Link>
-          <Link href="/blog/image-to-svg-guide" className={s.blogLink}>Image to SVG Guide</Link>
-          <Link href="/blog/image-to-vector-guide" className={s.blogLink}>Image to Vector</Link>
-          <Link href="/blog/svg-vs-png" className={s.blogLink}>SVG vs PNG</Link>
+        <nav className={s.navLinks} aria-label={t.nav.label}>
+          <Link href="/best-free-svg-converter-2027" className={s.blogLink}>{t.nav.best}</Link>
+          <Link href="/blog/image-to-svg-guide" className={s.blogLink}>{t.nav.guide}</Link>
+          <Link href="/blog/image-to-vector-guide" className={s.blogLink}>{t.nav.vector}</Link>
+          <Link href="/blog/svg-vs-png" className={s.blogLink}>{t.nav.svgPng}</Link>
+          <LanguageSwitcher current={locale} label={t.footer.languageH} />
         </nav>
       </header>
     </>

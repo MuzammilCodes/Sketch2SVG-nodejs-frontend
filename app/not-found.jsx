@@ -1,39 +1,53 @@
 import Link from "next/link";
-import Header from "./components/Header";
+import PageHeader from "./components/PageHeader";
+import PageFooter from "./components/PageFooter";
+import s from "./components/Site.module.css";
+import n from "./components/NotFound.module.css";
 
 export const metadata = {
   title: "Page not found",
-  description: "The page you are looking for does not exist.",
-  robots: { index: false, follow: false },
+  description: "The page you are looking for does not exist or has moved.",
+  robots: { index: false, follow: true },
 };
+
+const SUGGESTIONS = [
+  ["/", "Image to SVG converter"],
+  ["/blog/image-to-svg-guide", "How to convert an image to SVG"],
+  ["/blog/svg-vs-png", "SVG vs PNG"],
+  ["/best-free-svg-converter-2027", "Best free SVG converter 2027"],
+  ["/changelog", "Changelog"],
+];
 
 export default function NotFound() {
   return (
-    <div style={{ maxWidth: "1160px", margin: "0 auto", padding: "0 28px 60px" }}>
-      <Header />
-      <section style={{ padding: "80px 0", textAlign: "center" }}>
-        <h2 style={{ fontFamily: "var(--font-serif)", fontSize: "2.4rem" }}>
-          404 — Page not found
-        </h2>
-        <p style={{ marginTop: 16, color: "var(--text-soft)" }}>
-          The page you are looking for doesn&apos;t exist or has moved.
-        </p>
-        <p style={{ marginTop: 24 }}>
-          <Link
-            href="/"
-            style={{
-              display: "inline-block",
-              padding: "12px 22px",
-              background: "var(--terracotta)",
-              color: "var(--warm-white)",
-              borderRadius: 8,
-              fontWeight: 700,
-            }}
-          >
+    <>
+      <div className={s.page}>
+        <PageHeader />
+        <section className={n.wrap}>
+          <p className={n.code} aria-hidden="true">
+            4<span>0</span>4
+          </p>
+          <h1 className={n.title}>Page not found</h1>
+          <p className={n.text}>
+            This page doesn&apos;t exist or has moved. Check the address, or head back to the converter.
+          </p>
+          <Link href="/" className={n.btn}>
             Go to the converter
           </Link>
-        </p>
-      </section>
-    </div>
+
+          <nav className={n.links} aria-label="Helpful pages">
+            <h2>Maybe you were looking for</h2>
+            <ul>
+              {SUGGESTIONS.map(([href, label]) => (
+                <li key={href}>
+                  <Link href={href}>{label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </section>
+      </div>
+      <PageFooter />
+    </>
   );
 }

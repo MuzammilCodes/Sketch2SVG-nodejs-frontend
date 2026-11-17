@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useState, useRef, useCallback, useEffect, useMemo } from "react";
 import s from "./components/Site.module.css";
-import Header from "./components/Header";
-import seo from "./components/HomeSeo.module.css";
-import Link from "next/link";
+import m from "./components/Machine.module.css";
+import ComparisonMachine from "./components/ComparisonMachine";
+import { toMonochrome } from "../lib/monochrome";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL || "https://svgconverterbackend.onrender.com";
@@ -16,21 +16,34 @@ const DEFAULTS = {
   opttolerance: 0.2,
 };
 
-export default function Converter() {
+export default function Converter({ t }) {
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
   const [svgOutput, setSvgOutput] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [params, setParams] = useState(DEFAULTS);
-  const [dragOver, setDragOver] = useState(false);
   const [showAdv, setShowAdv] = useState(false);
   const [progress, setProgress] = useState(0);
   const [svgBg, setSvgBg] = useState("checker"); // checker | white | dark
+  const [mono, setMono] = useState(false);
   const [copied, setCopied] = useState(false);
   const inputRef = useRef(null);
   const timerRef = useRef(null);
   const copyRef = useRef(null);
+
+  // The SVG shown, copied and downloaded; black & white is derived so colour is never lost.
+  const displaySvg = useMemo(
+    () => (mono && svgOutput ? toMonochrome(svgOutput) : svgOutput),
+    [mono, svgOutput]
+  );
+  const svgUrl = useMemo(
+    () =>
+      displaySvg
+        ? `data:image/svg+xml;charset=utf-8,${encodeURIComponent(displaySvg)}`
+        : null,
+    [displaySvg]
+  );
 
   // Simulated progress bar
   useEffect(() => {
@@ -49,36 +62,28 @@ export default function Converter() {
     return () => clearInterval(timerRef.current);
   }, [loading, svgOutput]);
 
-  const handleFile = useCallback((f) => {
-    if (!f) return;
-    const ok = [
-      "image/png",
-      "image/jpeg",
-      "image/bmp",
-      "image/gif",
-      "image/webp",
-    ];
-    if (!ok.includes(f.type)) {
-      setError("Please upload a PNG, JPG, BMP, GIF, or WebP image.");
-      return;
-    }
-    setFile(f);
-    setSvgOutput(null);
-    setError(null);
-    setProgress(0);
-    const r = new FileReader();
-    r.onload = (e) => setPreview(e.target.result);
-    r.readAsDataURL(f);
-  }, []);
+  useEffect(() => () => clearTimeout(copyRef.current), []);
 
-  const onDrop = useCallback(
-    (e) => {
-      e.preventDefault();
-      setDragOver(false);
-      handleFile(e.dataTransfer.files[0]);
+  const handleFile = useCallback(
+    (f) => {
+      if (!f) return;
+      const ok = ["image/png", "image/jpeg", "image/bmp", "image/gif", "image/webp"];
+      if (!ok.includes(f.type)) {
+        setError(t.errFormat);
+        return;
+      }
+      setFile(f);
+      setSvgOutput(null);
+      setError(null);
+      setProgress(0);
+      const r = new FileReader();
+      r.onload = (e) => setPreview(e.target.result);
+      r.readAsDataURL(f);
     },
-    [handleFile]
+    [t.errFormat]
   );
+
+  const browse = useCallback(() => inputRef.current?.click(), []);
 
   const convert = async () => {
     if (!file) return;
@@ -96,7 +101,7 @@ export default function Converter() {
       const res = await fetch(`${API}/convert`, { method: "POST", body: fd });
       if (!res.ok) {
         const j = await res.json().catch(() => ({}));
-        throw new Error(j.error || `Server error ${res.status}`);
+        throw new Error(j.error || t.errServer.replace("{status}", res.status));
       }
       setSvgOutput(await res.text());
     } catch (e) {
@@ -107,8 +112,8 @@ export default function Converter() {
   };
 
   const copyMarkup = () => {
-    if (!svgOutput) return;
-    navigator.clipboard.writeText(svgOutput).then(() => {
+    if (!displaySvg) return;
+    navigator.clipboard.writeText(displaySvg).then(() => {
       setCopied(true);
       clearTimeout(copyRef.current);
       copyRef.current = setTimeout(() => setCopied(false), 2000);
@@ -116,13 +121,13 @@ export default function Converter() {
   };
 
   const download = () => {
-    if (!svgOutput) return;
-    const blob = new Blob([svgOutput], { type: "image/svg+xml" });
+    if (!displaySvg) return;
+    const blob = new Blob([displaySvg], { type: "image/svg+xml" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download =
-      (file?.name?.replace(/\.[^.]+$/, "") || "output") + ".svg";
+      (file?.name?.replace(/\.[^.]+$/, "") || "output") + (mono ? "-bw" : "") + ".svg";
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -130,95 +135,66 @@ export default function Converter() {
   const set = (k, v) => setParams((p) => ({ ...p, [k]: v }));
 
   return (
-    <div className={s.page}>
-      <Header />
+    <>
+      <main className={m.workbench}>
+        {/* LEFT — comparison machine */}
+        <ComparisonMachine
+          t={t}
+          previewUrl={preview}
+          svgUrl={svgUrl}
+          sweepKey={svgOutput}
+          bg={svgBg}
+          loading={loading}
+          onFile={handleFile}
+          onBrowse={browse}
+        />
 
-      {/* ── Hero intro ── */}
-      <section className={s.hero}>
-        <h1 className={s.heroTitle}>
-          Free Image to SVG Converter Online
-        </h1>
-        <p className={s.heroBody}>
-          Convert supported PNG, JPG, BMP, GIF and WebP images into SVG vector paths. Adjust tracing settings, preview your result and download the SVG.
-        </p>
-      </section>
-
-      {/* ── Main converter ── */}
-      <main className={s.converter}>
-        {/* LEFT — upload + controls */}
+        {/* RIGHT — control console */}
         <div className={s.card}>
           <div className={s.cardLabel}>
-            <LeafIcon /> Your image
+            <LeafIcon /> {t.consoleTitle}
           </div>
 
-          <div
-            className={`${s.dropzone} ${dragOver ? s.dragOver : ""} ${
-              file ? s.filled : ""
-            }`}
-            onDragOver={(e) => {
-              e.preventDefault();
-              setDragOver(true);
+          <input
+            ref={inputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/bmp,image/gif,image/webp"
+            className={s.hiddenInput}
+            onChange={(e) => {
+              handleFile(e.target.files[0]);
+              e.target.value = "";
             }}
-            onDragLeave={() => setDragOver(false)}
-            onDrop={onDrop}
-            onClick={() => inputRef.current?.click()}
-          >
-            <input
-              ref={inputRef}
-              type="file"
-              accept="image/png,image/jpeg,image/bmp,image/gif,image/webp"
-              className={s.hiddenInput}
-              onChange={(e) => handleFile(e.target.files[0])}
-            />
-            {preview ? (
-              <div className={s.imgWrap}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={preview} alt="Input preview" className={s.thumbImg} />
-                <div className={s.imgHover}>
-                  <SwapIcon /> Replace image
-                </div>
-              </div>
-            ) : (
-              <div className={s.dropContent}>
-                <UploadIllustration />
-                <p className={s.dropTitle}>Drop your image here</p>
-                <p className={s.dropSub}>or click to browse</p>
-                <div className={s.formatRow}>
-                  {["PNG", "JPG", "BMP", "GIF", "WebP"].map((f) => (
-                    <span key={f} className={s.fmt}>
-                      {f}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+          />
+
+          <button className={s.advToggle} onClick={browse} type="button">
+            {file ? <SwapIcon /> : <UploadIcon />}
+            {file ? t.replaceImage : t.chooseImage}
+          </button>
 
           {file && (
             <div className={s.filePill}>
               <DocIcon />
               <span className={s.fileName}>{file.name}</span>
-              <span className={s.fileKb}>
-                {(file.size / 1024).toFixed(1)} KB
-              </span>
+              <span className={s.fileKb}>{(file.size / 1024).toFixed(1)} KB</span>
             </div>
           )}
 
           <button
             className={s.advToggle}
             onClick={() => setShowAdv((v) => !v)}
+            aria-expanded={showAdv}
             type="button"
           >
             <TuneIcon />
-            Fine-tune settings
+            {t.fineTune}
             <span className={`${s.chevron} ${showAdv ? s.open : ""}`}>▾</span>
           </button>
 
           {showAdv && (
             <div className={s.advPanel}>
               <Slider
-                label="Threshold"
-                hint="Darkness cutoff (0–255)"
+                label={t.threshold.label}
+                hint={t.threshold.hint}
                 value={params.threshold}
                 min={0}
                 max={255}
@@ -226,8 +202,8 @@ export default function Converter() {
                 onChange={(v) => set("threshold", +v)}
               />
               <Slider
-                label="Speckle filter"
-                hint="Suppress noise smaller than N px"
+                label={t.speckle.label}
+                hint={t.speckle.hint}
                 value={params.turdsize}
                 min={0}
                 max={100}
@@ -235,8 +211,8 @@ export default function Converter() {
                 onChange={(v) => set("turdsize", +v)}
               />
               <Slider
-                label="Corner smoothing"
-                hint="0 = sharp · 1.33 = fully curved"
+                label={t.corners.label}
+                hint={t.corners.hint}
                 value={params.alphamax}
                 min={0}
                 max={1.33}
@@ -244,8 +220,8 @@ export default function Converter() {
                 onChange={(v) => set("alphamax", parseFloat(v))}
               />
               <Slider
-                label="Curve accuracy"
-                hint="Lower = tighter fit, more nodes"
+                label={t.curve.label}
+                hint={t.curve.hint}
                 value={params.opttolerance}
                 min={0.1}
                 max={0.5}
@@ -257,7 +233,7 @@ export default function Converter() {
                 onClick={() => setParams(DEFAULTS)}
                 type="button"
               >
-                ↩ Reset to defaults
+                ↩ {t.reset}
               </button>
             </div>
           )}
@@ -270,11 +246,11 @@ export default function Converter() {
           >
             {loading ? (
               <>
-                <SpinIcon className={s.spin} /> Converting…
+                <SpinIcon className={s.spin} /> {t.converting}
               </>
             ) : (
               <>
-                <ZapIcon /> Convert to SVG
+                <ZapIcon /> {t.convert}
               </>
             )}
           </button>
@@ -283,9 +259,7 @@ export default function Converter() {
             <div className={s.progRow}>
               <div className={s.progTrack}>
                 <div
-                  className={`${s.progFill} ${
-                    progress === 100 ? s.done : ""
-                  }`}
+                  className={`${s.progFill} ${progress === 100 ? s.done : ""}`}
                   style={{ width: `${progress}%` }}
                 />
               </div>
@@ -296,175 +270,73 @@ export default function Converter() {
           )}
 
           {error && (
-            <div className={s.errBox}>
+            <div className={s.errBox} role="alert">
               <WarningIcon /> {error}
             </div>
           )}
-        </div>
-
-        {/* RIGHT — SVG output */}
-        <div className={s.card}>
-          <div className={s.cardLabel}>
-            <VectorIcon /> SVG output
-            {svgOutput && (
-              <div className={s.labelRight}>
-                <BgToggle value={svgBg} onChange={setSvgBg} />
-                <button
-                  className={s.dlBtn}
-                  onClick={download}
-                  type="button"
-                >
-                  <DownloadIcon /> Download .svg
-                </button>
-              </div>
-            )}
-          </div>
-
-          <div
-            className={`${s.outputBox} ${s[`bg_${svgBg}`]} ${
-              svgOutput ? s.hasResult : ""
-            }`}
-          >
-            {svgOutput ? (
-              <>
-                <div
-                  className={s.svgInner}
-                  // eslint-disable-next-line react/no-danger
-                  dangerouslySetInnerHTML={{ __html: svgOutput }}
-                />
-                <div className={s.svgBadge}>
-                  <span className={s.svgTag}>SVG</span>
-                  <span className={s.svgSize}>
-                    {(svgOutput.length / 1024).toFixed(2)} KB
-                  </span>
-                </div>
-              </>
-            ) : (
-              <div className={s.emptyState}>
-                <FrameIcon />
-                <p>Your SVG preview appears here</p>
-                <span>Upload an image and hit Convert</span>
-              </div>
-            )}
-          </div>
 
           {svgOutput && (
-            <div className={s.markupBlock}>
-              <div className={s.markupHeader}>
-                <span className={s.markupTitle}>
-                  <CodeIcon /> SVG markup
+            <div className={m.outputTools}>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={mono}
+                className={`${m.switchRow} ${mono ? m.switchOn : ""}`}
+                onClick={() => setMono((v) => !v)}
+              >
+                <span className={m.switchTrack}>
+                  <span className={m.switchThumb} />
                 </span>
-                <button
-                  className={`${s.copyBtn} ${copied ? s.copyDone : ""}`}
-                  onClick={copyMarkup}
-                  type="button"
-                >
-                  {copied ? (
-                    <>
-                      <CheckIcon /> Copied!
-                    </>
-                  ) : (
-                    <>
-                      <CopyIcon /> Copy
-                    </>
-                  )}
-                </button>
+                <span className={m.switchText}>
+                  <strong>{t.bw}</strong>
+                  <span>{t.bwHint}</span>
+                </span>
+              </button>
+
+              <div className={m.toolRow}>
+                <BgToggle value={svgBg} onChange={setSvgBg} t={t} />
+                <span className={m.sizeInfo}>
+                  SVG · {(displaySvg.length / 1024).toFixed(2)} KB
+                </span>
               </div>
-              <pre className={s.sourceCode}>
-                <code>{svgOutput}</code>
-              </pre>
+
+              <button className={s.dlBtn} onClick={download} type="button">
+                <DownloadIcon /> {mono ? t.downloadBw : t.download}
+              </button>
             </div>
           )}
         </div>
       </main>
 
-      {/* Crawlable explanatory content: rendered with the page, while the converter remains interactive. */}
-      <section className={seo.content} aria-labelledby="about-converter">
-        <div className={seo.inner}>
-          <p className={seo.eyebrow}>IMAGE TO VECTOR TOOL</p>
-          <h2 id="about-converter">Convert an image to SVG vector paths</h2>
-          <p className={seo.lead}>
-            Image2SVG is an online image-to-SVG converter. Upload a supported raster image and the conversion service traces its visible regions into SVG output. The result is useful for suitable logos, icons, symbols and high-contrast illustrations.
-          </p>
-
-          <div className={seo.grid}>
-            <section>
-              <h3>Supported image formats</h3>
-              <p>The upload interface accepts PNG, JPG/JPEG, BMP, GIF and WebP files. The conversion service processes the uploaded image and returns SVG markup when conversion succeeds.</p>
-            </section>
-            <section>
-              <h3>How to use the converter</h3>
-              <ol>
-                <li>Choose an image from your device or drag it into the upload area.</li>
-                <li>Optionally adjust threshold, speckle filtering, corner smoothing and curve accuracy.</li>
-                <li>Run the conversion, inspect the SVG preview and download the result.</li>
-              </ol>
-            </section>
-            <section>
-              <h3>Images that usually trace well</h3>
-              <p>Simple logos, icons, silhouettes and high-contrast artwork are generally easier to vectorize. Clear edges and limited visual noise help produce more manageable paths.</p>
-            </section>
-            <section>
-              <h3>When to keep a raster image</h3>
-              <p>Photographs, soft gradients, textures and highly detailed images are often better kept as PNG, JPEG or WebP. Tracing may simplify details or create complex paths.</p>
-            </section>
+      {displaySvg && (
+        <div className={`${s.markupBlock} ${m.markup}`}>
+          <div className={s.markupHeader}>
+            <span className={s.markupTitle}>
+              <CodeIcon /> {t.markup}
+              {mono ? " · B&W" : ""}
+            </span>
+            <button
+              className={`${s.copyBtn} ${copied ? s.copyDone : ""}`}
+              onClick={copyMarkup}
+              type="button"
+            >
+              {copied ? (
+                <>
+                  <CheckIcon /> {t.copied}
+                </>
+              ) : (
+                <>
+                  <CopyIcon /> {t.copy}
+                </>
+              )}
+            </button>
           </div>
-
-          <div className={seo.links}>
-            <h3>Learn more about image conversion</h3>
-            <Link href="/blog/image-to-svg-guide">How to convert an image to SVG</Link>
-            <Link href="/blog/image-to-vector-guide">How raster images become vector graphics</Link>
-            <Link href="/blog/svg-vs-png">SVG vs PNG: which format should you use?</Link>
-          </div>
+          <pre className={s.sourceCode}>
+            <code>{displaySvg}</code>
+          </pre>
         </div>
-      </section>
-
-      {/* ── Developer Info ── */}
-      <section className={s.devSection}>
-        <div className={s.devInner}>
-          <div className={s.devLeft}>
-            <span className={s.devEyebrow}>Developer</span>
-            <h3 className={s.devTitle}>
-              Mohammed
-              <br />
-              Muzammil<span className={s.devAccent}>Uddin</span>
-            </h3>
-          </div>
-
-          <div className={s.devLinks}>
-            <Link
-              href="https://github.com/MuzammilCodes"
-              target="_blank"
-              rel="noreferrer"
-              className={s.devLink}
-            >
-              <GithubIcon />
-              <span>Github</span>
-            </Link>
-            <Link
-              href="https://www.linkedin.com/in/muzammil-codes/"
-              target="_blank"
-              rel="noreferrer"
-              className={s.devLink}
-            >
-              <LinkedInIcon />
-              <span>LinkedIn</span>
-            </Link>
-            <Link
-              href="https://muzammilcodes-v2.netlify.app/"
-              target="_blank"
-              rel="noreferrer"
-              className={s.devLink}
-            >
-              <GlobeIcon />
-              <span>Portfolio</span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <div className={s.bottomBand} />
-    </div>
+      )}
+    </>
   );
 }
 
@@ -483,6 +355,7 @@ function Slider({ label, hint, value, min, max, step, onChange }) {
         max={max}
         step={step}
         value={value}
+        aria-label={label}
         onChange={(e) => onChange(e.target.value)}
       />
       <div className={s.sliderEnds}>
@@ -494,18 +367,20 @@ function Slider({ label, hint, value, min, max, step, onChange }) {
 }
 
 // ── Background toggle ───────────────────────────────────────────
-function BgToggle({ value, onChange }) {
+function BgToggle({ value, onChange, t }) {
   const opts = [
     { id: "checker", label: "⊞" },
     { id: "white", label: "○" },
     { id: "dark", label: "●" },
   ];
   return (
-    <div className={s.bgToggle}>
+    <div className={s.bgToggle} role="group" aria-label={t.bgLabel}>
       {opts.map((o) => (
         <button
           key={o.id}
-          title={o.id}
+          title={t.bg[o.id]}
+          aria-label={t.bg[o.id]}
+          aria-pressed={value === o.id}
           type="button"
           className={`${s.bgBtn} ${value === o.id ? s.bgActive : ""}`}
           onClick={() => onChange(o.id)}
@@ -517,18 +392,18 @@ function BgToggle({ value, onChange }) {
   );
 }
 
-// ── Inline icons (kept inline to mirror the original; no extra payload) ──
+// ── Inline icons ────────────────────────────────────────────────
 const LeafIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
     <path d="M11 20A7 7 0 0118 7a10 10 0 00-10 10c0 1.1.18 2.16.5 3.14" />
     <path d="M11 20c-.27-2.12.56-4.5 2-6" />
   </svg>
 );
-const UploadIllustration = () => (
-  <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" opacity=".5" aria-hidden="true">
-    <polyline points="16 16 12 12 8 16" />
-    <line x1="12" y1="12" x2="12" y2="21" />
-    <path d="M20.39 18.39A5 5 0 0018 9h-1.26A8 8 0 103 16.3" />
+const UploadIcon = () => (
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <polyline points="16 8 12 4 8 8" />
+    <line x1="12" y1="4" x2="12" y2="16" />
+    <path d="M20 16v3a2 2 0 01-2 2H6a2 2 0 01-2-2v-3" />
   </svg>
 );
 const SwapIcon = () => (
@@ -572,22 +447,11 @@ const WarningIcon = () => (
     <line x1="12" y1="16" x2="12.01" y2="16" />
   </svg>
 );
-const VectorIcon = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-  </svg>
-);
 const DownloadIcon = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
     <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
     <polyline points="7 10 12 15 17 10" />
     <line x1="12" y1="3" x2="12" y2="15" />
-  </svg>
-);
-const FrameIcon = () => (
-  <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" opacity=".3" aria-hidden="true">
-    <rect x="3" y="3" width="18" height="18" rx="2" />
-    <path d="M3 9h18M9 21V9" />
   </svg>
 );
 const CodeIcon = () => (
@@ -605,22 +469,5 @@ const CopyIcon = () => (
 const CheckIcon = () => (
   <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
     <polyline points="20 6 9 17 4 12" />
-  </svg>
-);
-const GithubIcon = () => (
-  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
-  </svg>
-);
-const LinkedInIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-  </svg>
-);
-const GlobeIcon = () => (
-  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-    <circle cx="12" cy="12" r="10" />
-    <line x1="2" y1="12" x2="22" y2="12" />
-    <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z" />
   </svg>
 );
