@@ -1,11 +1,12 @@
 import Link from "next/link";
 import ArticleLayout from "../ArticleLayout";
-import s from "../Blog.module.css";
-import { SITE_URL } from "../../../lib/site";
+import s from "../../../components/Blog.module.css";
+import { SITE_URL } from "../../../../lib/site";
+import { IMAGE_TO_SVG_PATH as BASE } from "../../../../lib/converters";
 
 const TITLE = "SVG vs PNG: Differences, Uses and When to Choose Each";
 const DESCRIPTION = "Compare SVG and PNG image formats, understand vector and raster graphics, and choose the right format for logos, icons, illustrations and photographs.";
-const PATH = "/blog/svg-vs-png";
+const PATH = `${BASE}/blog/svg-vs-png`;
 
 export const metadata = {
   title: TITLE,
@@ -73,7 +74,7 @@ export default function SvgVsPngGuide() {
       <section id="convert">
         <h2>Can you convert PNG to SVG?</h2>
         <p>Yes. A tracing tool can analyse a PNG and approximate its visible regions with vector paths. This process is called vectorization. It is not a lossless format conversion: the SVG is a traced interpretation of the pixels, and fine details may be simplified.</p>
-        <p>Simple, high-contrast graphics generally trace more cleanly than photographs. You can <Link href="/">try the Image2SVG PNG-to-SVG workflow</Link> with an image and adjust the tracing settings.</p>
+        <p>Simple, high-contrast graphics generally trace more cleanly than photographs. You can <Link href={BASE}>try the Image2SVG PNG-to-SVG workflow</Link> with an image and adjust the tracing settings.</p>
       </section>
       <section id="seo">
         <h2>Do SVG and PNG affect website SEO?</h2>

@@ -1,11 +1,12 @@
 import Link from "next/link";
 import ArticleLayout from "../blog/ArticleLayout";
-import { SITE_URL } from "../../lib/site";
+import { SITE_URL } from "../../../lib/site";
+import { IMAGE_TO_SVG_PATH as BASE } from "../../../lib/converters";
 
 const TITLE = "Best Free SVG Converter 2027";
 const DESCRIPTION =
   "Looking for the best free SVG converter in 2027? Learn what to look for in an online image-to-SVG tool, how raster-to-vector conversion works, and how to convert supported images with Image2SVG.";
-const PATH = "/best-free-svg-converter-2027";
+const PATH = `${BASE}/best-free-svg-converter-2027`;
 
 export const metadata = {
   title: "Best Free SVG Converter 2027: Convert Images to SVG Online",
@@ -137,7 +138,7 @@ export default function BestFreeSvgConverter2027Page() {
           you are comfortable with that processing arrangement.
         </p>
         <p>
-          <Link href="/">Open the free Image2SVG image converter</Link> to try it
+          <Link href={BASE}>Open the free Image2SVG image converter</Link> to try it
           with a supported image.
         </p>
       </section>
@@ -145,7 +146,7 @@ export default function BestFreeSvgConverter2027Page() {
       <section id="steps">
         <h2>How to convert an image to SVG online</h2>
         <ol>
-          <li>Open the <Link href="/">Image2SVG image-to-SVG converter</Link>.</li>
+          <li>Open the <Link href={BASE}>Image2SVG image-to-SVG converter</Link>.</li>
           <li>
             Select a supported PNG, JPG/JPEG, BMP, GIF or WebP image from your
             device.

@@ -1,14 +1,15 @@
 import Link from "next/link";
-import PageHeader from "../components/PageHeader";
-import PageFooter from "../components/PageFooter";
-import s from "./Blog.module.css";
-import { SITE_NAME, SITE_URL, absoluteUrl, jsonLdString } from "../../lib/site";
+import PageHeader from "../../components/PageHeader";
+import PageFooter from "../../components/PageFooter";
+import s from "../../components/Blog.module.css";
+import { SITE_NAME, SITE_URL, absoluteUrl, jsonLdString } from "../../../lib/site";
+import { IMAGE_TO_SVG_PATH as BASE } from "../../../lib/converters";
 
 const GUIDES = [
-  ["/best-free-svg-converter-2027", "Best Free SVG Converter 2027", "What to look for in a free image-to-SVG converter."],
-  ["/blog/image-to-svg-guide", "Image to SVG Guide", "Step-by-step guide to converting PNG and JPG images to SVG."],
-  ["/blog/image-to-vector-guide", "Image to Vector Guide", "How raster-to-vector tracing works and how to get cleaner paths."],
-  ["/blog/svg-vs-png", "SVG vs PNG", "Differences between vector and raster formats and when to use each."],
+  [`${BASE}/best-free-svg-converter-2027`, "Best Free SVG Converter 2027", "What to look for in a free image-to-SVG converter."],
+  [`${BASE}/blog/image-to-svg-guide`, "Image to SVG Guide", "Step-by-step guide to converting PNG and JPG images to SVG."],
+  [`${BASE}/blog/image-to-vector-guide`, "Image to Vector Guide", "How raster-to-vector tracing works and how to get cleaner paths."],
+  [`${BASE}/blog/svg-vs-png`, "SVG vs PNG", "Differences between vector and raster formats and when to use each."],
 ];
 
 export default function ArticleLayout({ title, description, path, readTime, toc, children }) {
@@ -40,7 +41,7 @@ export default function ArticleLayout({ title, description, path, readTime, toc,
             <strong>Ready to convert an image to SVG?</strong>
             Upload a supported image, adjust the tracing controls and download the resulting SVG.
           </div>
-          <Link href="/" className={s.ctaBtn}>Open free converter →</Link>
+          <Link href={BASE} className={s.ctaBtn}>Open free converter →</Link>
         </aside>
         <nav className={s.tocBox} aria-label="Article contents">
           <p className={s.tocLabel}>In this guide</p>
@@ -58,7 +59,7 @@ export default function ArticleLayout({ title, description, path, readTime, toc,
         <aside className={s.bottomArticleCta}>
           <h2>Try Image2SVG</h2>
           <p>Convert a supported raster image into SVG vector output. The result depends on the image and tracing settings.</p>
-          <Link href="/" className={s.ctaBtn}>Convert an image →</Link>
+          <Link href={BASE} className={s.ctaBtn}>Convert an image →</Link>
         </aside>
       </article>
       <PageFooter />

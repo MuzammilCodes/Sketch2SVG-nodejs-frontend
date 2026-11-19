@@ -25,7 +25,7 @@ export default function AboutPage() {
         </p>
         <p>
           The tool works best on logos, icons, silhouettes, line art and other high-contrast artwork. Photographs and
-          soft gradients usually trace poorly, and our <Link href="/blog/image-to-vector-guide">guide to raster and vector images</Link>{" "}
+          soft gradients usually trace poorly, and our <Link href="/image-to-svg-converter/blog/image-to-vector-guide">guide to raster and vector images</Link>{" "}
           explains why.
         </p>
       </section>

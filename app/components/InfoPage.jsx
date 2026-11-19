@@ -1,6 +1,6 @@
 import PageHeader from "./PageHeader";
 import PageFooter from "./PageFooter";
-import s from "../blog/Blog.module.css";
+import s from "./Blog.module.css";
 import { SITE_NAME, absoluteUrl, jsonLdString } from "../../lib/site";
 
 /** Shared shell for the About, Privacy, Disclaimer, Terms and Changelog pages. */

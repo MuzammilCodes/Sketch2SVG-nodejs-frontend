@@ -11,10 +11,10 @@ export const metadata = {
 };
 
 const SUGGESTIONS = [
-  ["/", "Image to SVG converter"],
-  ["/blog/image-to-svg-guide", "How to convert an image to SVG"],
-  ["/blog/svg-vs-png", "SVG vs PNG"],
-  ["/best-free-svg-converter-2027", "Best free SVG converter 2027"],
+  ["/image-to-svg-converter", "Image to SVG converter"],
+  ["/image-to-svg-converter/blog/image-to-svg-guide", "How to convert an image to SVG"],
+  ["/image-to-svg-converter/blog/svg-vs-png", "SVG vs PNG"],
+  ["/image-to-svg-converter/best-free-svg-converter-2027", "Best free SVG converter 2027"],
   ["/changelog", "Changelog"],
 ];
 
@@ -31,7 +31,7 @@ export default function NotFound() {
           <p className={n.text}>
             This page doesn&apos;t exist or has moved. Check the address, or head back to the converter.
           </p>
-          <Link href="/" className={n.btn}>
+          <Link href="/image-to-svg-converter" className={n.btn}>
             Go to the converter
           </Link>
 

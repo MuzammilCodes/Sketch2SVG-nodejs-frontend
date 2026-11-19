@@ -1,5 +1,5 @@
 import HomeView from "../HomeView";
-import { homeMetadata } from "../../lib/homeMetadata";
+import { homeMetadata } from "../../../lib/homeMetadata";
 
 export const metadata = homeMetadata("fr");
 

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import ArticleLayout from "../ArticleLayout";
-import { SITE_URL } from "../../../lib/site";
+import { SITE_URL } from "../../../../lib/site";
+import { IMAGE_TO_SVG_PATH as BASE } from "../../../../lib/converters";
 
 const TITLE = "Image to Vector Conversion: How Raster Images Become SVG";
 const DESCRIPTION = "Understand image-to-vector conversion, how tracing software creates SVG paths, which source images work well, and how to prepare artwork for cleaner results.";
-const PATH = "/blog/image-to-vector-guide";
+const PATH = `${BASE}/blog/image-to-vector-guide`;
 
 export const metadata = {
   title: TITLE,
@@ -64,7 +65,7 @@ export default function ImageToVectorGuide() {
         <h2>Try an image-to-vector workflow</h2>
         <ol>
           <li>Choose a clear raster image in a supported format.</li>
-          <li>Upload it to <Link href="/">Image2SVG</Link>.</li>
+          <li>Upload it to <Link href={BASE}>Image2SVG</Link>.</li>
           <li>Adjust the tracing controls to suit the image.</li>
           <li>Generate and inspect the SVG output.</li>
           <li>Download the file and, if needed, refine it in a vector editor.</li>

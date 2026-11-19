@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect, useMemo } from "react";
-import s from "./components/Site.module.css";
+import s from "../components/Site.module.css";
 import m from "./components/Machine.module.css";
 import ComparisonMachine from "./components/ComparisonMachine";
-import { toMonochrome } from "../lib/monochrome";
+import { toMonochrome } from "../../lib/monochrome";
 
 const API =
   process.env.NEXT_PUBLIC_API_URL || "https://svgconverterbackend.onrender.com";

@@ -1,10 +1,11 @@
 import Link from "next/link";
 import ArticleLayout from "../ArticleLayout";
-import { SITE_URL } from "../../../lib/site";
+import { SITE_URL } from "../../../../lib/site";
+import { IMAGE_TO_SVG_PATH as BASE } from "../../../../lib/converters";
 
 const TITLE = "How to Convert an Image to SVG Online";
 const DESCRIPTION = "Learn how raster-to-vector conversion works, which images trace well, and how to convert PNG, JPG, BMP, GIF and WebP files into SVG with Image2SVG.";
-const PATH = "/blog/image-to-svg-guide";
+const PATH = `${BASE}/blog/image-to-svg-guide`;
 
 export const metadata = {
   title: TITLE,
@@ -59,7 +60,7 @@ export default function ImageToSvgGuide() {
       <section id="steps">
         <h2>How to convert an image to SVG with Image2SVG</h2>
         <ol>
-          <li>Open the <Link href="/">Image2SVG converter</Link>.</li>
+          <li>Open the <Link href={BASE}>Image2SVG converter</Link>.</li>
           <li>Choose a PNG, JPG/JPEG, BMP, GIF or WebP image.</li>
           <li>Open the fine-tune settings if you want to adjust the tracing result.</li>
           <li>Select the conversion action and wait for the API to return SVG markup.</li>

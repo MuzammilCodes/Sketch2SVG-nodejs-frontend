@@ -2,6 +2,7 @@ import Link from "next/link";
 import s from "./Site.module.css";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { getDictionary, localePath } from "../../lib/i18n";
+import { IMAGE_TO_SVG_PATH as BASE } from "../../lib/converters";
 
 export default function Header({ locale = "en" }) {
   const t = getDictionary(locale);
@@ -19,10 +20,10 @@ export default function Header({ locale = "en" }) {
           </div>
         </Link>
         <nav className={s.navLinks} aria-label={t.nav.label}>
-          <Link href="/best-free-svg-converter-2027" className={s.blogLink}>{t.nav.best}</Link>
-          <Link href="/blog/image-to-svg-guide" className={s.blogLink}>{t.nav.guide}</Link>
-          <Link href="/blog/image-to-vector-guide" className={s.blogLink}>{t.nav.vector}</Link>
-          <Link href="/blog/svg-vs-png" className={s.blogLink}>{t.nav.svgPng}</Link>
+          <Link href={`${BASE}/best-free-svg-converter-2027`} className={s.blogLink}>{t.nav.best}</Link>
+          <Link href={`${BASE}/blog/image-to-svg-guide`} className={s.blogLink}>{t.nav.guide}</Link>
+          <Link href={`${BASE}/blog/image-to-vector-guide`} className={s.blogLink}>{t.nav.vector}</Link>
+          <Link href={`${BASE}/blog/svg-vs-png`} className={s.blogLink}>{t.nav.svgPng}</Link>
           <LanguageSwitcher current={locale} label={t.footer.languageH} />
         </nav>
       </header>

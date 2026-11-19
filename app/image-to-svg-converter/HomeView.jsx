@@ -1,16 +1,17 @@
 import Link from "next/link";
-import s from "./components/Site.module.css";
+import s from "../components/Site.module.css";
 import seo from "./components/HomeSeo.module.css";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Converter from "./Converter";
 import BeforeAfterGallery from "./components/BeforeAfterGallery";
 import UseCases from "./components/UseCases";
 import EmbedSnippet from "./components/EmbedSnippet";
-import DeveloperCard from "./components/DeveloperCard";
-import LocaleSync from "./components/LocaleSync";
-import { DEFAULT_LOCALE, getDictionary, localePath } from "../lib/i18n";
-import { SITE_NAME, absoluteUrl, jsonLdString } from "../lib/site";
+import DeveloperCard from "../components/DeveloperCard";
+import LocaleSync from "../components/LocaleSync";
+import { DEFAULT_LOCALE, getDictionary, localePath } from "../../lib/i18n";
+import { SITE_NAME, absoluteUrl, jsonLdString } from "../../lib/site";
+import { IMAGE_TO_SVG_PATH as BASE } from "../../lib/converters";
 
 export default function HomeView({ locale = DEFAULT_LOCALE }) {
   const t = getDictionary(locale);
@@ -80,9 +81,9 @@ export default function HomeView({ locale = DEFAULT_LOCALE }) {
 
             <div className={seo.links}>
               <h3>{t.seo.learnH}</h3>
-              <Link href="/blog/image-to-svg-guide">{t.seo.links[0]}</Link>
-              <Link href="/blog/image-to-vector-guide">{t.seo.links[1]}</Link>
-              <Link href="/blog/svg-vs-png">{t.seo.links[2]}</Link>
+              <Link href={`${BASE}/blog/image-to-svg-guide`}>{t.seo.links[0]}</Link>
+              <Link href={`${BASE}/blog/image-to-vector-guide`}>{t.seo.links[1]}</Link>
+              <Link href={`${BASE}/blog/svg-vs-png`}>{t.seo.links[2]}</Link>
             </div>
           </div>
         </section>
