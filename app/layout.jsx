@@ -7,7 +7,9 @@ const lora = Lora({ subsets: ["latin"], weight: ["400", "600", "700"], variable:
 const fraunces = Fraunces({ subsets: ["latin"], weight: ["700"], style: ["normal", "italic"], variable: "--font-fraunces", display: "swap" });
 const dmMono = DM_Mono({ subsets: ["latin"], weight: ["400"], variable: "--font-dm-mono", display: "swap" });
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
+const isValidGtmId =
+  typeof GTM_ID === "string" && /^GTM-[A-Z0-9]+$/i.test(GTM_ID);
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
@@ -69,17 +71,38 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${lora.variable} ${fraunces.variable} ${dmMono.variable}`}>
       <head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(siteJsonLd) }} />
+        {isValidGtmId && (
+          <Script
+            id="google-tag-manager"
+            strategy="beforeInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({
+                'gtm.start': new Date().getTime(),event:'gtm.js'});
+                var f=d.getElementsByTagName(s)[0],
+                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
+                j.async=true;
+                j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
+                f.parentNode.insertBefore(j,f);
+                })(window,document,'script','dataLayer','${GTM_ID}');
+              `,
+            }}
+          />
+        )}
       </head>
       <body>
-        {children}
-        {GA_ID && (
-          <>
-            <Script src={`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(GA_ID)}`} strategy="afterInteractive" />
-            <Script id="ga-init" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', '${GA_ID}');`}
-            </Script>
-          </>
+        {isValidGtmId && (
+          <noscript>
+            <iframe
+              src={`https://www.googletagmanager.com/ns.html?id=${GTM_ID}`}
+              height="0"
+              width="0"
+              style={{ display: "none", visibility: "hidden" }}
+              title="Google Tag Manager"
+            />
+          </noscript>
         )}
+        {children}
       </body>
     </html>
   );
