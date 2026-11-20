@@ -97,6 +97,10 @@
   font-style: italic;
 }
 
+/* Home hero: full-width so the H1 stays on one line on desktop. */
+.heroWide { max-width: none; }
+.heroTitleOneLine { font-size: clamp(1.6rem, 4.4vw, 3.2rem); }
+
 .heroBody {
   font-size: 0.97rem;
   color: var(--text-soft);
@@ -877,17 +881,68 @@
 .langFull .langLink:hover { background: rgba(255, 255, 255, 0.08); }
 .langFull .langActive { background: var(--terracotta); color: var(--warm-white); }
 
-/* ── Mobile: stack header so nav links sit below the logo ── */
+/* ── Mobile menu toggle (hidden on tablet/desktop) ── */
+.menuBtn { display: none; }
+
+/* ── Mobile: hamburger opens a full-screen centered menu ── */
 @media (max-width: 640px) {
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 14px;
-    padding: 22px 0 18px;
+  .header { padding: 22px 0 18px; }
+
+  .menuBtn {
+    display: block;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1001;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
   }
+  .menuBar {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 24px;
+    height: 2px;
+    margin: -1px 0 0 -12px;
+    border-radius: 2px;
+    background: var(--bark);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .menuBar:nth-child(1) { transform: translateY(-7px); }
+  .menuBar:nth-child(3) { transform: translateY(7px); }
+  .menuOpen .menuBar:nth-child(1) { transform: rotate(45deg); }
+  .menuOpen .menuBar:nth-child(2) { opacity: 0; }
+  .menuOpen .menuBar:nth-child(3) { transform: rotate(-45deg); }
+
   .navLinks {
-    width: 100%;
-    flex-wrap: wrap;
-    gap: 16px 20px;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    padding: 80px 24px;
+    overflow-y: auto;
+    text-align: center;
+    background: var(--cream);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
   }
+  .navOpen {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+  }
+  .navLinks .blogLink { font-size: 1.15rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .menuBar, .navLinks { transition: none; }
 }

@@ -55,8 +55,8 @@ export default function HomeView({ locale = DEFAULT_LOCALE }) {
       <div className={s.page}>
         <Header locale={locale} />
 
-        <section className={s.hero}>
-          <h1 className={s.heroTitle}>{t.hero.title}</h1>
+        <section className={`${s.hero} ${s.heroWide}`}>
+          <h1 className={`${s.heroTitle} ${s.heroTitleOneLine}`}>{t.hero.title}</h1>
           <p className={s.heroBody}>{t.hero.body}</p>
         </section>
 
