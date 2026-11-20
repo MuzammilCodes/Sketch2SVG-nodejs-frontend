@@ -131,6 +131,9 @@
 .card:hover {
   box-shadow: var(--shadow-md);
 }
+@media (max-width: 490px) {
+  .card { padding: 16px; }
+}
 
 .cardLabel {
   display: flex;

@@ -10,7 +10,7 @@ import EmbedSnippet from "./components/EmbedSnippet";
 import DeveloperCard from "../components/DeveloperCard";
 import LocaleSync from "../components/LocaleSync";
 import { DEFAULT_LOCALE, getDictionary, localePath } from "../../lib/i18n";
-import { SITE_NAME, absoluteUrl, jsonLdString } from "../../lib/site";
+import { SITE_NAME, GALLERY_IMAGES, absoluteUrl, jsonLdString } from "../../lib/site";
 import { IMAGE_TO_SVG_PATH as BASE } from "../../lib/converters";
 
 export default function HomeView({ locale = DEFAULT_LOCALE }) {
@@ -30,9 +30,26 @@ export default function HomeView({ locale = DEFAULT_LOCALE }) {
     isAccessibleForFree: true,
   };
 
+  const imageJsonLd = GALLERY_IMAGES.map((img) => ({
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    contentUrl: absoluteUrl(img.path),
+    url: absoluteUrl(img.path),
+    name: t.gallery[img.titleKey],
+    description: t.gallery[img.altKey],
+    caption: t.gallery[img.titleKey],
+    encodingFormat: "image/jpeg",
+    width: img.width,
+    height: img.height,
+    inLanguage: locale,
+  }));
+
   return (
     <div lang={locale}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(softwareJsonLd) }} />
+      {imageJsonLd.map((ld) => (
+        <script key={ld.url} type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdString(ld) }} />
+      ))}
       <LocaleSync locale={locale} />
 
       <div className={s.page}>

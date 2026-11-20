@@ -18,8 +18,10 @@
   margin-bottom: 28px;
 }
 @media (max-width: 900px) {
-  .workbench { grid-template-columns: 1fr; }
+  .workbench { grid-template-columns: minmax(0, 1fr); }
 }
+/* Grid items default to min-width:auto and would otherwise stretch the track past the viewport. */
+.workbench > * { min-width: 0; }
 
 /* ── 3D machine ───────────────────────────────────────────────── */
 .scene {
@@ -107,7 +109,7 @@
   color: var(--teal-ink);
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.7);
 }
-.leds { display: flex; gap: 14px; }
+.leds { display: flex; flex-wrap: wrap; gap: 6px 14px; }
 .ledItem { display: inline-flex; align-items: center; gap: 6px; }
 .ledText {
   font-family: var(--font-mono);
@@ -438,6 +440,22 @@
   .stageWrap { margin: 0 4px; }
   .knob { width: 36px; height: 58px; }
   .brand { letter-spacing: 0.08em; }
+}
+@media (max-width: 490px) {
+  .workbench { gap: 20px; }
+  .machine { padding: 10px 8px; border-radius: 22px; }
+  .topPlate { padding: 6px 10px 14px; }
+  .topPlate::after { left: 10px; right: 10px; }
+  .leds { gap: 6px 10px; }
+  .stageWrap { margin: 0 8px; }
+  .rail { left: -6px; right: -6px; }
+  .bezel { inset: 32px -6px; }
+  .bottomPlate { padding: 10px 6px 6px; gap: 6px; }
+  .plate { padding: 3px 8px; letter-spacing: 0.06em; font-size: 0.58rem; }
+  .lcd { min-width: 0; padding: 4px 6px; font-size: 0.6rem; letter-spacing: 0.02em; }
+  .dropBtn { padding: 10px; gap: 4px; }
+  .dropTitle { font-size: 0.85rem; }
+  .dropSub { font-size: 0.74rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .scan { animation: none; opacity: 0; }
